@@ -11,7 +11,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Hello App Engine</title>
   </head>
-  <script language="JavaScript" src="test.js"></script>
+  <script language="JavaScript" src="SvgScene.js"></script>
   <body>
     <h1>Hello hello App Engine!</h1>
 	
@@ -23,6 +23,198 @@
         <td><a href="traceray">Traceray</a></td>
       </tr>
     </table>
+    <div style="width:600;height:400;background-color:#000000;border:1pt solid #ff0000;position:relative" id="viewPort1"></div>
+    <script language="JavaScript">
+    var scene1=new SvgScene();
+scene1.init(document.getElementById("viewPort1"),
+{
+  viewport: {
+    lefttop: [
+      8.469654613737486,
+      5.817108361830394,
+      -13.529047447862746
+    ],
+    leftaxis: [
+      -14.807699597038303,
+      1.136757402206301,
+      -0.6159820869674567
+    ],
+    topaxis: [
+      -0.8379599106137479,
+      -11.26156276298111,
+      -0.6386650015028635
+    ],
+    viewpoint: [
+      1.8306696962564388,
+      2.135998330057148,
+      -40.065929729021256
+    ]
+  },
+  shapes: [
+    {
+      type: "plane",
+      point: [
+        0,
+        -2,
+        0
+      ],
+      normal: [
+        -0.374606593415912,
+        0.9271838545667874,
+        0
+      ],
+      color: [
+        50,
+        50,
+        50,
+        true
+      ],
+      shapeAttributes: {
+        reflection: 0.5,
+        diffusion: 0.5,
+        shininess: 0.5,
+        transparency: 0,
+        refractionIndex: 1,
+        roughness: 0
+      }
+    },
+    {
+      type: "plane",
+      point: [
+        7,
+        -1.2246467991473532e-16,
+        0
+      ],
+      normal: [
+        -0.9271838545667874,
+        -0.37460659341591196,
+        0
+      ],
+      color: [
+        50,
+        50,
+        50,
+        true
+      ],
+      shapeAttributes: {
+        reflection: 0.5,
+        diffusion: 0.5,
+        shininess: 0.5,
+        transparency: 0,
+        refractionIndex: 1,
+        roughness: 0
+      }
+    },
+    {
+      type: "lightsource",
+      center: [
+        -2.622246153911384,
+        6.490286981967512,
+        0
+      ],
+      radius: 1,
+      color: [
+        150,
+        150,
+        150,
+        true
+      ]
+    },
+    {
+      type: "sphere",
+      center: [
+        2,
+        0,
+        0
+      ],
+      radius: 0.5,
+      color: [
+        0,
+        0,
+        100,
+        true
+      ],
+      shapeAttributes: {
+        reflection: 0.2,
+        diffusion: 0.5,
+        shininess: 0.5,
+        transparency: 0.8,
+        refractionIndex: 0.5,
+        roughness: 0
+      }
+    },
+    {
+      type: "sphere",
+      center: [
+        -0.9999999999999996,
+        0,
+        -1.7320508075688774
+      ],
+      radius: 0.5,
+      color: [
+        0,
+        0,
+        100,
+        true
+      ],
+      shapeAttributes: {
+        reflection: 0.2,
+        diffusion: 0.5,
+        shininess: 0.5,
+        transparency: 0.8,
+        refractionIndex: 0.5,
+        roughness: 0
+      }
+    },
+    {
+      type: "sphere",
+      center: [
+        -1.0000000000000007,
+        0,
+        1.7320508075688767
+      ],
+      radius: 0.5,
+      color: [
+        0,
+        0,
+        100,
+        true
+      ],
+      shapeAttributes: {
+        reflection: 0.2,
+        diffusion: 0.5,
+        shininess: 0.5,
+        transparency: 0.8,
+        refractionIndex: 0.5,
+        roughness: 0
+      }
+    },
+    {
+      type: "sphere",
+      center: [
+        0,
+        2,
+        0
+      ],
+      radius: 0.5,
+      color: [
+        0,
+        0,
+        100,
+        true
+      ],
+      shapeAttributes: {
+        reflection: 0.2,
+        diffusion: 0.5,
+        shininess: 0.5,
+        transparency: 0.8,
+        refractionIndex: 0.5,
+        roughness: 0
+      }
+    }
+  ]
+});
+    </script>
     
   </body>
 </html>
