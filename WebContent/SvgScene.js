@@ -1032,10 +1032,9 @@ var SvgScene=function(){
 		var doSomething=function(){
 			var req=new XMLHttpRequest();
 			req.onload=function(){console.log(this.responseText);};
-			req.open("POST","/", true);
-			req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			var s=sceneXml();
-			console.log(s);
+			req.open("POST","/traceray", true);
+			req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			req.send(s+"\n");
 		};
 		return {
