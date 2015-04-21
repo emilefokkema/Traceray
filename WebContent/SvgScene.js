@@ -449,6 +449,8 @@ var SvgScene=function(){
 		return {
 			lt: lt,
 			setWh: function(w_, h_){w=w_; h=h_; setSize();},
+			w: function(){return w;},
+			h: function(){return h;},
 			leftTop: function(){return leftTop;},
 			leftAxis: function(){return leftAxis;},
 			topAxis: function(){return topAxis},
@@ -1031,7 +1033,11 @@ var SvgScene=function(){
 
 		var doSomething=function(){
 			var req=new XMLHttpRequest();
-			req.onload=function(){console.log(this.responseText);};
+			req.onload=function(){
+				//this.response
+				var w=window.open("","","width="+viewPort.w()+", height="+viewPort.h());
+				w.document.write("<img src='data:image/bmp;base24,"+this.response+"'>");
+			};
 			var s=sceneXml();
 			req.open("POST","/traceray", true);
 			req.setRequestHeader("Content-type","application/x-www-form-urlencoded");

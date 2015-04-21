@@ -1,4 +1,8 @@
 package com.traceray;
+
+import java.io.IOException;
+import java.io.OutputStream;
+
 public class MyImage {
 	public int w;
 	public int h;
@@ -18,8 +22,4 @@ public class MyImage {
 		this.color[l-1][t-1]=c;
 		return this;
 	}
-}
-
-class MyBMP{
-	
 }
