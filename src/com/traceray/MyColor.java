@@ -12,6 +12,18 @@ public class MyColor {
 		this(r,g,b);
 		this.reflectable=reflectable;
 	}
+	public String toString(){
+		return Integer.toHexString(intR())+Integer.toHexString(intG())+Integer.toHexString(intB());
+	}
+	public byte[] toByteArray(){
+		String s=toString();
+		int l=s.length();
+		byte[] b=new byte[l];
+		for(int i=0;i<l;i++){
+			b[i]=(byte)s.charAt(i);
+		}
+		return b;
+	}
 	public int intR(){
 		return (int)Math.floor(Math.max(Math.min(this.r,255), 0));
 	}

@@ -1036,7 +1036,8 @@ var SvgScene=function(){
 			req.onload=function(){
 				//this.response
 				var w=window.open("","","width="+viewPort.w()+", height="+viewPort.h());
-				w.document.write("<img src='data:image/bmp;base24,"+this.response+"'>");
+				w.document.write(this.response);
+				console.log(this.response.toString());
 			};
 			var s=sceneXml();
 			req.open("POST","/traceray", true);

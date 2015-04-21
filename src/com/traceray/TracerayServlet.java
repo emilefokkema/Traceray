@@ -8,44 +8,40 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.*;
 
 import org.w3c.dom.Document;
+import java.util.concurrent.ThreadFactory;
+import com.google.appengine.api.ThreadManager;
 
 import java.io.BufferedReader;
 
+
 @SuppressWarnings("serial")
 public class TracerayServlet extends HttpServlet {
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		BufferedReader contentReader=req.getReader();
-		String line=null;
-		int i=0;
-		while(line==null&&i<5){
-			line=contentReader.readLine();
-			i++;
-		}
-		resp.setContentType("text/plain");
-		resp.getWriter().println(line+", "+i);
-	}
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		ServletContext context = getServletContext();
 		String fullPath = context.getRealPath("/WEB-INF/schema/xml_schema.xsd");
 		InputStream input=req.getInputStream();
-		resp.setContentType("image/bmp");
-		XmlHandler h=new XmlHandler(fullPath, input, resp.getOutputStream());
-		//resp.getWriter().println("right");
+		resp.setContentType("text/plain");
+		OutputStream out=resp.getOutputStream();
+		XmlHandler h=new XmlHandler(fullPath, input, out);
+		try{
+			h.write();
+		}catch(IOException e){
+			out.write(new byte[]{'o', 'o', 'p', 's'});
+		}
 	}
 }
 
 class XmlHandler{
-	private Scene s;
-	private Viewport v;
-	public XmlHandler(String schemaPath, InputStream xmlInput, OutputStream bmpOutput){
+	private SceneImageWriter w;
+	public XmlHandler(String schemaPath, InputStream xmlInput, OutputStream imageOutput){
 		SceneXmlFactory f=SceneXmlFactory.getInstance(schemaPath);
 		Document xmlScene=f.getSceneXml(xmlInput);
 		SceneXml sceneXml=new SceneXml(xmlScene);
-		this.s=sceneXml.getScene();
-		this.v=sceneXml.getViewPort();
-		MyBMP bmp=new MyBMP(null, bmpOutput);
-		bmp.write();
+		this.w=new SceneImageWriter(sceneXml.getScene(), sceneXml.getViewPort(), imageOutput, 3);
+	}
+	public void write() throws IOException{
+		this.w.write();
 	}
 }
+
