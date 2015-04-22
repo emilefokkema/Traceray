@@ -19,8 +19,9 @@ public class PixelCalculator implements Runnable{
 	public void run(){
 		MyColor c1=s.getNextColor(viewPoint, v.getPoint(l+0.25, t+0.25).minus(viewPoint), depth);
         MyColor c2=s.getNextColor(viewPoint, v.getPoint(l+0.25, t+0.75).minus(viewPoint), depth);
-        MyColor c3=s.getNextColor(viewPoint, v.getPoint(l+0.75, t+0.25).minus(viewPoint), depth);
+        //MyColor c3=s.getNextColor(viewPoint, v.getPoint(l+0.75, t+0.25).minus(viewPoint), depth);
         MyColor c4=s.getNextColor(viewPoint, v.getPoint(l+0.75, t+0.75).minus(viewPoint), depth);
-		i.setColor(l, t, c1.scale(0.25).add(c2.scale(0.25)).add(c3.scale(0.25)).add(c4.scale(0.25)));
+        i.setColor(l, t, c1.scale(0.333).add(c2.scale(0.333)).add(c4.scale(0.333)));
+		//i.setColor(l, t, c1.scale(0.25).add(c2.scale(0.25)).add(c3.scale(0.25)).add(c4.scale(0.25)));
 	}
 }

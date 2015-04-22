@@ -1030,22 +1030,48 @@ var SvgScene=function(){
 	};
 
 	var Interaction=(function(){
-
+		var connected=true;
 		var doSomething=function(){
-			var req=new XMLHttpRequest();
-			req.onload=function(){
-				//this.response
-				var w=window.open("","","width="+viewPort.w()+", height="+viewPort.h());
-				w.document.write(this.response);
-				console.log(this.response.toString());
-			};
-			var s=sceneXml();
-			req.open("POST","/traceray", true);
-			req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			req.send(s+"\n");
+			if(connected){
+				var req=new XMLHttpRequest();
+				req.onload=function(){
+					//this.response
+					(function(colorString){
+						var w=viewPort.w();
+						var h=viewPort.h();
+						var win=window.open("","","width="+w+", height="+h);
+						var canvas=document.createElement('canvas');
+						canvas.setAttribute('width',w);
+						canvas.setAttribute('height', h);
+						canvas.setAttribute('style', 'position:absolute;left:0;top:0');
+						win.document.body.appendChild(canvas);
+						var currentL=0;
+						var currentT=0;
+						var color;
+						var ctx=canvas.getContext("2d");
+						while(colorString.length>0&&currentL<w&&currentT<h){
+							color=colorString.substr(0,6);
+							ctx.fillStyle="#"+color;
+							ctx.fillRect(currentL, currentT,1,1);
+							colorString=colorString.substring(6);
+							currentT++;
+							if(currentT==h){
+								currentT=0;
+								currentL++;
+							}
+						}
+					})(this.response);
+					
+				};
+				var s=sceneXml();
+				req.open("POST","/traceray", true);
+				req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				req.send(s+"\n");
+			}
 		};
 		return {
-			
+			disconnect: function(){connected=false;},
+			connect: function(){connected=true;},
 			doSomething: doSomething
 		};
 	})();
@@ -2226,7 +2252,9 @@ var SvgScene=function(){
 			svg.hideControls();
 			delete sc.hideControls;
 		},
-		go: function(){Interaction.doSomething();}
+		go: function(){Interaction.doSomething();},
+		disconnect: function(){Interaction.disconnect();},
+		connect: function(){Interaction.connect();}
 	};
 	return sc;
 };

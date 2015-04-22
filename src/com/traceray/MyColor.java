@@ -12,8 +12,14 @@ public class MyColor {
 		this(r,g,b);
 		this.reflectable=reflectable;
 	}
+	private String valueString(int v){
+		String s=Integer.toHexString(v);
+		if(s.length()==1){s="0"+s;}
+		return s;
+	}
 	public String toString(){
-		return Integer.toHexString(intR())+Integer.toHexString(intG())+Integer.toHexString(intB());
+		//return Integer.toHexString(intR())+Integer.toHexString(intG())+Integer.toHexString(intB());
+		return valueString(intR())+valueString(intG())+valueString(intB());
 	}
 	public byte[] toByteArray(){
 		String s=toString();
