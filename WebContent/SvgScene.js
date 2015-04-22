@@ -2184,6 +2184,7 @@ var SvgScene=function(){
 
 			var currentOnLoad=whereSvg.onload;
 			whereSvg.onload=function(){
+				if(currentOnLoad){currentOnLoad();}
 				var makeColor=function(arr){
 					var c=Color(arr[0], arr[1], arr[2]);
 					if(arr.length==4&&arr[3]){c.setReflectable(true);}
@@ -2192,7 +2193,6 @@ var SvgScene=function(){
 				var makePoint=function(arr){
 					return Point(arr[0], arr[1], arr[2]);
 				};
-				if(currentOnLoad){currentOnLoad();}
 				(function(){
 					if(things_&&things_.shapes&&things_.shapes.length>0){
 						console.log("begin adding shapes...");
@@ -2208,23 +2208,39 @@ var SvgScene=function(){
 						}
 						console.log("finish adding shapes");
 					}
+					var w_=whereSvg.offsetWidth;
+					var h_=whereSvg.offsetHeight;
+					svgObject.setWh(w_,h_);
+					viewPort.setWh(w_,h_);
+					if(things_&&things_.viewport){
+						(function(){
+							var viewport=things_.viewport;
+							var lefttop=makePoint(viewport.lefttop);
+							var leftaxis=makePoint(viewport.leftaxis);
+							var topaxis=makePoint(viewport.topaxis);
+							var viewpoint=makePoint(viewport.viewpoint);
+							viewPort.setUp(lefttop, leftaxis, topaxis, viewpoint);
+						})();
+					}
+					twoD.setWh(w_,h_);
+					drawThings();
 				})();
-				var w_=whereSvg.offsetWidth;
-				var h_=whereSvg.offsetHeight;
-				svgObject.setWh(w_,h_);
-				viewPort.setWh(w_,h_);
-				if(things_&&things_.viewport){
-					(function(){
-						var viewport=things_.viewport;
-						var lefttop=makePoint(viewport.lefttop);
-						var leftaxis=makePoint(viewport.leftaxis);
-						var topaxis=makePoint(viewport.topaxis);
-						var viewpoint=makePoint(viewport.viewpoint);
-						viewPort.setUp(lefttop, leftaxis, topaxis, viewpoint);
-					})();
-				}
-				twoD.setWh(w_,h_);
-				drawThings();
+				// var w_=whereSvg.offsetWidth;
+				// var h_=whereSvg.offsetHeight;
+				// svgObject.setWh(w_,h_);
+				// viewPort.setWh(w_,h_);
+				// if(things_&&things_.viewport){
+				// 	(function(){
+				// 		var viewport=things_.viewport;
+				// 		var lefttop=makePoint(viewport.lefttop);
+				// 		var leftaxis=makePoint(viewport.leftaxis);
+				// 		var topaxis=makePoint(viewport.topaxis);
+				// 		var viewpoint=makePoint(viewport.viewpoint);
+				// 		viewPort.setUp(lefttop, leftaxis, topaxis, viewpoint);
+				// 	})();
+				// }
+				// twoD.setWh(w_,h_);
+				// drawThings();
 			};
 
 		};
