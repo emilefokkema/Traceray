@@ -25,6 +25,7 @@ public class MyImage {
 		return this;
 	}
 	public void write() throws IOException{
+		this.out.write(new byte[]{'e', 'c', 'f'});
 		for(int i=0;i<w;i++){
 			for(int j=0;j<h;j++){
 				this.out.write(color[i][j].toByteArray());
